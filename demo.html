@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+	<script src="http://libs.useso.com/js/jquery/2.1.1-rc1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="box">伪元素</div>
+	<style type="text/css">
+		.box{
+			width: 150px;
+			height: 150px;
+			background: #ccc;
+			margin: 100px;
+			position: relative;
+		}
+		.box:after{
+			content: '';
+			width: 0px;
+			height: 10px;
+			background: #000;
+			display: block;
+			position: absolute;
+			top: -10px;
+			right:0px;
+			transition:all 0.5s;
+		}
+		.boxHover:after{
+			/*right: 0px;*/
+			width: 150px;
+		}
+	</style>
+	<script type="text/javascript">
+	$(function(){
+		$('.box').hover(
+			function(){
+				$('.box').addClass('boxHover');
+			},
+			function(){
+				$('.box').removeClass('boxHover');
+			});
+	});
+	</script>
+	<div class="box2">决定定位
+		<div class="top"></div>
+		<div class="right"></div>
+		<div class="bottom"></div>
+		<div class="left"></div>
+	</div>
+	<style type="text/css">
+		.box2{
+			width: 150px;
+			height: 150px;
+			background: #ccc;
+			margin: 100px;
+			position: relative;
+		}
+		.top,.bottom,.left,.right{
+			position: absolute;
+			transition:all 0.5s;
+		}
+		.top,.bottom{
+			width: 0px;height:10px;
+			background: #333;
+		}
+		.left,.right{
+			width: 10px;height: 0px;
+			background: #333;
+		}
+		.top{
+			top:-10px;
+			right: 0px;
+		}
+		.bottom{
+			bottom: -10px;
+			left: 0;
+		}
+		.left{
+			left: -10px;
+			top:0;
+		}
+		.right{
+			right: -10px;
+			bottom: 0px;
+		}
+		.change1{
+			height: 160px;
+		}
+		.change2{
+			width: 160px;
+		}
+	</style>
+	<script type="text/javascript">
+	$(function(){
+		$('.box2').hover(
+			function(){
+				$('.left').addClass('change1');
+				$('.right').addClass('change1');
+				$('.top').addClass('change2');
+				$('.bottom').addClass('change2');
+			},
+			function(){
+				$('.left').removeClass('change1');
+				$('.right').removeClass('change1');
+				$('.top').removeClass('change2');
+				$('.bottom').removeClass('change2');
+			});
+	});
+	</script>
+</body>
+</html>
