@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>边框</title>
+	<script src="http://libs.useso.com/js/jquery/2.1.1-rc1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="div1" class="borderWrap">div1
+		<div class="top"></div>
+		<div class="right"></div>
+		<div class="bottom"></div>
+		<div class="left"></div>
+	</div>
+	<div id="div2" class="borderWrap">div2
+		<div class="top"></div>
+		<div class="right"></div>
+		<div class="bottom"></div>
+		<div class="left"></div>
+	</div>
+	<style type="text/css">
+		#div1{
+			width: 150px;height: 300px;
+		}
+		#div2{
+			width: 400px;height: 250px;
+		}
+		.borderWrap{
+			background: #ccc;
+			margin: 100px;
+			position: relative;
+		}
+		.top,.bottom,.left,.right{
+			position: absolute;
+			transition:all 0.5s;
+		}
+	</style>
+	<script type="text/javascript">
+	var borderWrap={
+		mouseover:function(event){
+			var borderWidth=event.width()+this.offset*2+'px';
+			var borderHeight=event.height()+this.offset*2+'px';
+			event.children('.left').css({'height':borderHeight});
+			event.children('.right').css({'height':borderHeight});
+			event.children('.top').css({'width':borderWidth});
+			event.children('.bottom').css({'width':borderWidth});
+		},
+		mouseout:function(event){
+			event.children('.left').css({'height':'0px'});
+			event.children('.right').css({'height':'0px'});
+			event.children('.top').css({'width':'0px'});
+			event.children('.bottom').css({'width':'0px'});
+		},
+		borderSet:function(marginSize,borderSize,borderColor){
+			this.marginSize=marginSize;
+			this.borderSize=borderSize;
+			this.borderColor=borderColor;
+			this.offset=this.marginSize+this.borderSize;//偏移量
+
+			this.marginSizePx=marginSize+'px';
+			this.borderSizePx=borderSize+'px';
+			this.offsetPx=this.marginSize+this.borderSize+'px';//偏移量
+
+			$('.borderWrap').children('.left').css({'left':'-'+this.offsetPx,'top':'-'+this.offsetPx,
+						'width':this.borderSizePx,'height':'0px',
+						'background-color':this.borderColor
+					});
+			$('.borderWrap').children('.right').css({'right':'-'+this.offsetPx,'bottom':'-'+this.offsetPx,
+						'width':this.borderSizePx,'height':'0px',
+						'background-color':this.borderColor
+					});
+			$('.borderWrap').children('.top').css({'top':'-'+this.offsetPx,'right':'-'+this.offsetPx,
+						'width':'0px','height':this.borderSizePx,
+						'background-color':this.borderColor
+					});
+			$('.borderWrap').children('.bottom').css({'bottom':'-'+this.offsetPx,'left':'-'+this.offsetPx,
+						'width':'0px','height':this.borderSizePx,
+						'background-color':this.borderColor
+					});
+		},
+		//三个参数为：边框与borderWrap间距，边框宽度，边框颜色
+		init:function(marginSize,borderSize,borderColor){
+			this.borderSet(marginSize,borderSize,borderColor);
+		}
+	};
+	borderWrap.init(0,2,'red');
+	$(function(){
+		$('.borderWrap').hover(
+			function(){
+				borderWrap.mouseover($(this));
+			},
+			function(){
+				borderWrap.mouseout($(this));
+			});
+	});
+	</script>
+</body>
+</html>
